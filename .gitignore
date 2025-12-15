@@ -8,6 +8,11 @@ target/
 .idea/jarRepositories.xml
 .idea/compiler.xml
 .idea/libraries/
+.idea/workspace.xml
+.idea/tasks.xml
+.idea/usage.statistics.xml
+.idea/shelf/
+.idea/httpRequests/
 *.iws
 *.iml
 *.ipr
@@ -26,7 +31,7 @@ target/
 /nbbuild/
 /dist/
 /nbdist/
-/.nb-gradle/
+/. nb-gradle/
 build/
 !**/src/main/**/build/
 !**/src/test/**/build/
@@ -36,3 +41,22 @@ build/
 
 ### Mac OS ###
 .DS_Store
+
+### Test outputs / reports ###
+test-output/
+surefire-reports/
+failsafe-reports/
+allure-results/
+allure-report/
+reports/
+screenshots/
+captures/
+
+### Logs / temp / artifacts ###
+*.log
+*.tmp
+*.swp
+*.swo
+*.class
+hs_err_pid*
+replay_pid*
