@@ -3,10 +3,9 @@ Simple, reusable starter for Selenium + TestNG with page objects, config loader,
 
 ## What’s included
 - TestNG lifecycle base (`BaseTest`) with ThreadLocal WebDriver, safe teardown, CLI override (`-Dbrowser=... -Denv=...`).
-- Page Object base (`BasePage`) with configurable `baseUrl` and explicit waits.
+- Page Object base (`BasePage`) with configurable `baseUrl`, explicit waits, and common helpers (waitVisible, waitClickable, clickWhenClickable, type, getText).
 - Driver factory (`DriverManager`) for Chrome/Firefox, default browser from config.
 - Config utilities (`ConfigLoader`, `PropertyUtils`, `EnvType`) loading `stg_config.properties` / `prod_config.properties` from classpath.
-- JSON helper (`JacksonUtils`) for fixture loading.
 
 ## Quick start
 1. Fill `src/test/resources/stg_config.properties` and `prod_config.properties` with your URLs/credentials, or override via CLI.
