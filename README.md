@@ -1,17 +1,18 @@
-# Selenium TestNG Template
-Simple, reusable starter for Selenium + TestNG with page objects, config loader, and environment switching.
+# Selenium TestNG Experiments
+Practical Selenium + TestNG project with a single config file, hardened checkout flow (overlay/stale handling), and parallel execution setup.
 
-## What’s included
-- TestNG lifecycle base (`BaseTest`) with ThreadLocal WebDriver, safe teardown, CLI override (`-Dbrowser=... -Denv=...`).
-- Page Object base (`BasePage`) with configurable `baseUrl`, explicit waits, and common helpers (waitVisible, waitClickable, clickWhenClickable, type, getText).
-- Driver factory (`DriverManager`) for Chrome/Firefox, default browser from config.
-- Config utilities (`ConfigLoader`, `PropertyUtils`, `EnvType`) loading `stg_config.properties` / `prod_config.properties` from classpath.
+## What’s inside
+- `BaseTest` with ThreadLocal WebDriver, safe teardown, CLI override (`-Dbrowser=...`).
+- `BasePage` helpers: `waitVisible`, `waitClickable`, `waitInvisible`, `clickWhenClickable`, `type`, plus text wait helpers.
+- `DriverManager` for Chrome/Firefox and a single config file (`config.properties`).
+- Checkout flow waits/retries to avoid overlay and stale element issues.
+- Parallel execution via TestNG suite (`testng.xml`) and Maven Surefire config.
 
 ## Quick start
-1. Fill `src/test/resources/stg_config.properties` and `prod_config.properties` with your URLs/credentials, or override via CLI.
-2. Run: `mvn test -Denv=STAGE -Dbrowser=chrome` (defaults: env=STAGE, browser=chrome).
-3. Add your page objects under `src/test/java/.../pages` and tests under `.../tests`.
+1) Update `src/test/resources/config.properties` with `baseUrl`, `username`, `password`, `browser`, `implicitWaitSeconds`, `explicitWaitSeconds`.
+2) Run suite (parallel) with Maven: `mvn test` (uses Surefire’s parallel settings) or right-click `testng.xml` in IntelliJ.
+3) To add tests/pages: put page objects under `src/test/java/.../pages` and tests under `.../tests`.
 
 ## Notes
-- No hardcoded secrets; config files hold placeholders. Add real values locally or pass via `-D`.
-- `.gitignore` excludes IDE noise, build output, and test reports.
+- Keep secrets local; override via `-D` if needed (e.g., `-Dbrowser=firefox`).
+- `.gitignore` filters IDE noise and build output.
