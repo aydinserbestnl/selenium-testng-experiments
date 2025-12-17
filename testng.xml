@@ -1,0 +1,9 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
+<suite name="Suite1" verbose="1" parallel="methods">
+    <test name="GuestCheckoutTest" parallel="methods">
+        <parameter name="browser" value="CHROME"/>
+        <classes>
+            <class name="com.selenium.pom.CheckoutTest"/>
+        </classes>
+    </test>
+</suite>

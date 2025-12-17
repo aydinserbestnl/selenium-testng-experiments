@@ -22,14 +22,14 @@ public class BaseTest {
             selected = ConfigLoader.getInstance().getBrowser();
         }
         driver.set(new DriverManager().initializeDriver(selected));
-        System.out.println("current thread: " + Thread.currentThread().threadId() +
-                ", DRIVER = " + getDriver());
+       // System.out.println("current thread: " + Thread.currentThread().threadId() +
+         //       ", DRIVER = " + getDriver());
     }
 
     @AfterMethod(alwaysRun = true)
     public void quitDriver() {
-        System.out.println("current thread: " + Thread.currentThread().threadId() +
-                ", DRIVER = " + getDriver());
+        //System.out.println("current thread: " + Thread.currentThread().threadId() +
+        //        ", DRIVER = " + getDriver());
         WebDriver d = getDriver();
         if (d != null) {
             d.quit();

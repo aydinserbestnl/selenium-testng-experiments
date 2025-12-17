@@ -9,13 +9,7 @@ public class ConfigLoader {
     private final Properties properties;
 
     private ConfigLoader() {
-        String env = System.getProperty("env", EnvType.STAGE.name());
-        EnvType envType = EnvType.valueOf(env.toUpperCase());
-        String file = switch (envType) {
-            case STAGE -> "stg_config.properties";
-            case PRODUCTION -> "prod_config.properties";
-        };
-        this.properties = PropertyUtils.propertyLoader(file);
+        this.properties = PropertyUtils.propertyLoader("config.properties");
     }
 
     public static ConfigLoader getInstance() { return INSTANCE; }
@@ -39,14 +33,20 @@ public class ConfigLoader {
     }
 
     public String getBrowser() {
-        return properties.getProperty("browser", "chrome");
+        String prop = properties.getProperty("browser");
+        if (prop != null) return prop;
+        throw new RuntimeException("browser not set in config file");
     }
 
     public int getImplicitWaitSeconds() {
-        return Integer.parseInt(properties.getProperty("implicitWaitSeconds", "0"));
+        String prop = properties.getProperty("implicitWaitSeconds");
+        if (prop != null) return Integer.parseInt(prop);
+        throw new RuntimeException("implicitWaitSeconds not set in config file");
     }
 
     public int getExplicitWaitSeconds() {
-        return Integer.parseInt(properties.getProperty("explicitWaitSeconds", "10"));
+        String prop = properties.getProperty("explicitWaitSeconds");
+        if (prop != null) return Integer.parseInt(prop);
+        throw new RuntimeException("explicitWaitSeconds not set in config file");
     }
 }

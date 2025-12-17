@@ -1,7 +1,11 @@
 package com.selenium.pom.base;
 
 import com.selenium.pom.utils.ConfigLoader;
+import org.openqa.selenium.By;
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
@@ -62,7 +66,12 @@ public class BasePage {
     protected boolean waitForUrlContains(String fragment) {
         return wait.until(ExpectedConditions.urlContains(fragment));
     }
+    protected boolean waitTextToBe(By locator, String text) {
+        return wait.until(ExpectedConditions.textToBe(locator, text));
+    }
+
+    protected boolean waitTextContains(By locator, String fragment) {
+        return wait.until(ExpectedConditions.textToBePresentInElementLocated(locator, fragment));
+    }
+
 }
-/*
-we are assigning the parameter driver to private WebDriver driver;
- */
