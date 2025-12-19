@@ -9,6 +9,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
+import java.util.List;
 
 public class BasePage {
     protected final WebDriver driver;
@@ -23,9 +24,9 @@ public class BasePage {
     }
 
     public void load(String endpoint) {
-        String normalizedEndpoint = endpoint.startsWith("/") ? endpoint.substring(1) : endpoint;
+        String normalized = endpoint.startsWith("/") ? endpoint.substring(1) : endpoint;
         String separator = baseUrl.endsWith("/") ? "" : "/";
-        driver.get(baseUrl + separator + normalizedEndpoint);
+        driver.get(baseUrl + separator + normalized);
     }
 
     protected WebElement waitVisible(By locator) {
@@ -66,6 +67,7 @@ public class BasePage {
     protected boolean waitForUrlContains(String fragment) {
         return wait.until(ExpectedConditions.urlContains(fragment));
     }
+
     protected boolean waitTextToBe(By locator, String text) {
         return wait.until(ExpectedConditions.textToBe(locator, text));
     }
@@ -73,5 +75,4 @@ public class BasePage {
     protected boolean waitTextContains(By locator, String fragment) {
         return wait.until(ExpectedConditions.textToBePresentInElementLocated(locator, fragment));
     }
-
 }

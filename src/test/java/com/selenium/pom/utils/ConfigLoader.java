@@ -1,7 +1,5 @@
 package com.selenium.pom.utils;
 
-import com.selenium.pom.constants.EnvType;
-
 import java.util.Properties;
 
 public class ConfigLoader {
@@ -12,41 +10,39 @@ public class ConfigLoader {
         this.properties = PropertyUtils.propertyLoader("config.properties");
     }
 
-    public static ConfigLoader getInstance() { return INSTANCE; }
+    public static ConfigLoader getInstance() {
+        return INSTANCE;
+    }
+
+    private String getRequiredProperty(String key) {
+        String prop = properties.getProperty(key);
+        if (prop != null && !prop.trim().isEmpty()) {
+            return prop;
+        }
+        throw new RuntimeException(key + " not set in config file");
+    }
 
     public String getBaseUrl() {
-        String prop = properties.getProperty("baseUrl");
-        if (prop != null) return prop;
-        throw new RuntimeException("baseUrl not set in config file");
+        return getRequiredProperty("baseUrl");
     }
 
     public String getUsername() {
-        String prop = properties.getProperty("username");
-        if (prop != null) return prop;
-        throw new RuntimeException("username not set in config file");
+        return getRequiredProperty("username");
     }
 
     public String getPassword() {
-        String prop = properties.getProperty("password");
-        if (prop != null) return prop;
-        throw new RuntimeException("password not set in config file");
+        return getRequiredProperty("password");
     }
 
     public String getBrowser() {
-        String prop = properties.getProperty("browser");
-        if (prop != null) return prop;
-        throw new RuntimeException("browser not set in config file");
+        return getRequiredProperty("browser");
     }
 
     public int getImplicitWaitSeconds() {
-        String prop = properties.getProperty("implicitWaitSeconds");
-        if (prop != null) return Integer.parseInt(prop);
-        throw new RuntimeException("implicitWaitSeconds not set in config file");
+        return Integer.parseInt(getRequiredProperty("implicitWaitSeconds"));
     }
 
     public int getExplicitWaitSeconds() {
-        String prop = properties.getProperty("explicitWaitSeconds");
-        if (prop != null) return Integer.parseInt(prop);
-        throw new RuntimeException("explicitWaitSeconds not set in config file");
+        return Integer.parseInt(getRequiredProperty("explicitWaitSeconds"));
     }
 }

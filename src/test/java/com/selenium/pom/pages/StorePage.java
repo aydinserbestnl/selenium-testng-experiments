@@ -4,7 +4,6 @@ import com.selenium.pom.base.BasePage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 
 public class StorePage extends BasePage {
     private static final String LEFT_QUOTE = "\u201C";
@@ -16,8 +15,12 @@ public class StorePage extends BasePage {
     private final By viewCartLink = By.cssSelector("a[title='View cart']");
 
     public StorePage(WebDriver driver) { super(driver); }
+    public StorePage load() {
+        load("/store");
+        return this;
+    }
 
-    public StorePage searchFor(String term) {
+    public StorePage search(String term) {
         WebElement input = waitVisible(searchField);
         input.clear();
         input.sendKeys(term);

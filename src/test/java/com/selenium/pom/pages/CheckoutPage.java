@@ -1,6 +1,8 @@
 package com.selenium.pom.pages;
 
 import com.selenium.pom.base.BasePage;
+import com.selenium.pom.objects.BillingAddress;
+import com.selenium.pom.objects.User;
 import org.openqa.selenium.By;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
@@ -57,28 +59,34 @@ public class CheckoutPage extends BasePage {
         return waitVisible(successNotice).getText();
     }
 
+    public CheckoutPage setBillingAddress(BillingAddress billingAddress) {
+        return enterFirstName(billingAddress.getFirstName())
+                .enterLastName(billingAddress.getLastName())
+                .enterAddressLineOne(billingAddress.getAddressLine())
+                .enterCity(billingAddress.getCity())
+                .enterPostCode(billingAddress.getPostalCode())
+                .enterEmail(billingAddress.getEmail());
+    }
+
     public OrderConfirmationPage placeOrder() {
         waitInvisible(overlay);
-
-        // Stale ihtimaline karşı 2 deneme
         for (int i = 0; i < 2; i++) {
             try {
-                WebElement button = waitClickable(placeOrderButton); // her seferinde yeniden bul
+                WebElement button = waitClickable(placeOrderButton);
                 button.click();
                 return new OrderConfirmationPage(driver);
             } catch (StaleElementReferenceException e) {
-                // tekrar dene; loop yeniden bulacak
+                // retry
             }
         }
-        // son çare: yeniden locate edip tıkla veya exception fırlat
         WebElement button = waitClickable(placeOrderButton);
         button.click();
         return new OrderConfirmationPage(driver);
     }
 
-
     public CheckoutPage clickHereToLogin() {
         clickWhenClickable(clickHereToLoginButton);
+        waitInvisible(overlay); // login form açılırken overlay kalksın
         return this;
     }
 
@@ -88,7 +96,7 @@ public class CheckoutPage extends BasePage {
     }
 
     public CheckoutPage enterPasswordField(String password) {
-        type(passwordField, password); // locator düzeltildi
+        type(passwordField, password);
         return this;
     }
 
@@ -97,12 +105,19 @@ public class CheckoutPage extends BasePage {
         return this;
     }
 
-    public CheckoutPage login(String userName, String password) {
-        waitVisible(userNameField).sendKeys(userName);
-        waitVisible(passwordField).sendKeys(password);
+    public CheckoutPage login(User user) {
+        waitInvisible(overlay); // form gerçekten etkileşime açık olsun
+        WebElement userEl = waitClickable(userNameField);
+        userEl.clear();
+        userEl.sendKeys(user.getUserName());
+
+        WebElement passEl = waitClickable(passwordField);
+        passEl.clear();
+        passEl.sendKeys(user.getPassword());
+
         clickWhenClickable(loginButton);
-        waitInvisible(overlay);                // login overlay kaybolsun
-        waitClickable(firstNameField);         // billing form tekrar aktif olsun
+        waitInvisible(overlay);        // login sonrası overlay kalksın
+        waitClickable(firstNameField); // billing form aktif
         return this;
     }
 }

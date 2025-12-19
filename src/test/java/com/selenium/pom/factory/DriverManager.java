@@ -17,8 +17,8 @@ public class DriverManager {
 
     public WebDriver initializeDriver(String browser) {
         WebDriver driver = switch (BrowserType.valueOf(browser.toUpperCase())) {
-            case CHROME -> new ChromeDriver();   // ister Options ekle
-            case FIREFOX -> new FirefoxDriver(); // ister Options ekle
+            case CHROME -> new ChromeDriver();
+            case FIREFOX -> new FirefoxDriver();
         };
 
         driver.manage().window().maximize();
