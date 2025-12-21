@@ -3,7 +3,7 @@
     <test name="GuestCheckoutTest" parallel="methods">
         <parameter name="browser" value="CHROME"/>
         <classes>
-            <class name="com.selenium.pom.tests.CheckoutTest"/>
+            <class name="com.selenium.pom.tests.MyFirstTest"/>
         </classes>
     </test>
 </suite>

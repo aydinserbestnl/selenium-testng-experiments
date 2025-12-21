@@ -22,8 +22,13 @@ public class CheckoutPage extends BasePage {
     private final By passwordField = By.id("password");
     private final By loginButton = By.cssSelector(".woocommerce-button");
     private final By overlay = By.cssSelector("div.blockUI.blockOverlay");
+    private final By productName = By.cssSelector("td[class='product-name']");
 
     public CheckoutPage(WebDriver driver) { super(driver); }
+    public CheckoutPage load(){
+        load("/checkout/");
+        return this;
+    }
 
     public CheckoutPage enterFirstName(String firstName) {
         type(firstNameField, firstName);
@@ -119,5 +124,8 @@ public class CheckoutPage extends BasePage {
         waitInvisible(overlay);        // login sonrası overlay kalksın
         waitClickable(firstNameField); // billing form aktif
         return this;
+    }
+    public String getProductName() {
+        return getText(productName);
     }
 }

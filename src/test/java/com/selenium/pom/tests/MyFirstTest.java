@@ -12,7 +12,7 @@ import org.testng.annotations.Test;
 
 import java.io.IOException;
 
-public class CheckoutTest extends BaseTest {
+public class MyFirstTest extends BaseTest {
 
     @Test
     public void guestCheckout() {
