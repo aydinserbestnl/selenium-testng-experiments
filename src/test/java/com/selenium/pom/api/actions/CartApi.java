@@ -19,7 +19,6 @@ public class CartApi {
         return cookies;
     }
     public Response addToCart(int productId, int quantity) {
-        Cookies cookies = new Cookies();
         Header header = new Header("Content-Type", "application/x-www-form-urlencoded");
         Headers headers = new Headers(header);
         HashMap<String, Object> formParams = new HashMap<>();
@@ -36,9 +35,9 @@ public class CartApi {
                 formParams(formParams).
                 cookies(cookies).
                 log().all().
-        when().
+                when().
                 post("/?wc-ajax=add_to_cart").
-        then().
+                then().
                 log().all().
                 extract().
                 response();

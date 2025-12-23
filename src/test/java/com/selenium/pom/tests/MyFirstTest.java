@@ -41,14 +41,12 @@ public class MyFirstTest extends BaseTest {
 
         Assert.assertEquals(
                 cartPage.getProductName(), "Blue Shoes");
-        CheckoutPage checkoutPage = cartPage.clickCheckoutButton();
-        OrderConfirmationPage orderConfirmationPage =
-                checkoutPage.
+        CheckoutPage checkoutPage = cartPage.clickCheckoutButton().
                         setBillingAddress(billingAddress).
                         placeOrder();
 
         Assert.assertEquals(
-                orderConfirmationPage.getSuccessMessage(),
+                checkoutPage.getNotice(),
                 "Thank you. Your order has been received."
         );
     }
@@ -85,14 +83,12 @@ public class MyFirstTest extends BaseTest {
         CheckoutPage checkoutPage = cartPage.clickCheckoutButton();
         checkoutPage.clickHereToLogin();
 
-        checkoutPage.login(user);
-        OrderConfirmationPage orderConfirmationPage =
-                checkoutPage.
+        checkoutPage.login(user).
                         setBillingAddress(billingAddress).
                         placeOrder();
 
         Assert.assertEquals(
-                orderConfirmationPage.getSuccessMessage(),
+                checkoutPage.getNotice(),
                 "Thank you. Your order has been received.");
     }
 }

@@ -73,20 +73,20 @@ public class CheckoutPage extends BasePage {
                 .enterEmail(billingAddress.getEmail());
     }
 
-    public OrderConfirmationPage placeOrder() {
+    public CheckoutPage placeOrder() {
         waitInvisible(overlay);
         for (int i = 0; i < 2; i++) {
             try {
                 WebElement button = waitClickable(placeOrderButton);
                 button.click();
-                return new OrderConfirmationPage(driver);
+                return new CheckoutPage(driver);
             } catch (StaleElementReferenceException e) {
                 // retry
             }
         }
         WebElement button = waitClickable(placeOrderButton);
         button.click();
-        return new OrderConfirmationPage(driver);
+        return new CheckoutPage(driver);
     }
 
     public CheckoutPage clickHereToLogin() {

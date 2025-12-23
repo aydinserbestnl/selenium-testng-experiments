@@ -38,9 +38,9 @@ public class SignUpApi {
                 baseUri(ConfigLoader.getInstance().getBaseUrl()).
                 cookies(cookies).
                 log().all().
-        when().
+                when().
                 get("/account").
-         then().
+                then().
                 log().all().
                 extract().
                 response();
@@ -66,7 +66,7 @@ public class SignUpApi {
                 cookies(cookies).
                 log().all().
                 when().
-         post("/account").
+                post("/account").
                 then().
                 log().all().
                 extract().

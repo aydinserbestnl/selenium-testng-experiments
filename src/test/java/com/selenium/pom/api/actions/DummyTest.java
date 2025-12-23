@@ -11,12 +11,12 @@ public class DummyTest {
                 setUserName(username).
                 setPassword("2134").
                 setEmail(username + "@askomdch.com");
-        SignUpApi signUpApi = new SignUpApi();
-        signUpApi.register(user);
-        System.out.println("REGISTER COOKIES: " + signUpApi.getCookies());
-        CartApi cartApi = new CartApi(signUpApi.getCookies());
-        cartApi.addToCart(1215, 1);
-        System.out.println("CART COOKIES: " + cartApi.getCookies());
+        SignUpApiWithMergeCookies signUpApiWithMergeCookies = new SignUpApiWithMergeCookies();
+        signUpApiWithMergeCookies.register(user);
+        System.out.println("REGISTER COOKIES: " + signUpApiWithMergeCookies.getCookies());
+        CartApiWithMergeCookies cartApiWithMergeCookies = new CartApiWithMergeCookies(signUpApiWithMergeCookies.getCookies());
+        cartApiWithMergeCookies.addToCart(1215, 1);
+        System.out.println("CART COOKIES: " + cartApiWithMergeCookies.getCookies());
 
 
         //without login,as anonym user, we are adding to cart

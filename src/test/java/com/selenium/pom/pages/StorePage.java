@@ -25,6 +25,7 @@ public class StorePage extends BasePage {
         input.clear();
         input.sendKeys(term);
         clickWhenClickable(searchButton);
+        waitTextContains(resultsHeading, "Search results");
         return this;
     }
 
