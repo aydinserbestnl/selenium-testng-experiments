@@ -2,6 +2,7 @@ package com.selenium.pom.factory;
 
 import com.selenium.pom.constants.BrowserType;
 import com.selenium.pom.utils.ConfigLoader;
+import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;

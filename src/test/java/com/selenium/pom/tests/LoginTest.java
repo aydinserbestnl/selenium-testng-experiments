@@ -73,7 +73,7 @@ public class LoginTest extends BaseTest {
         Assert.assertEquals(checkoutPage.getNotice(), "Thank you. Your order has been received.");
     }
     @Test
-    public void loginAndCheckout() throws IOException {
+    public void loginAndCheckout() throws IOException, InterruptedException {
         BillingAddress billingAddress = JacksonUtils.deserializeJson("myBillingAddress.json", BillingAddress.class);
 
         String username = "demouser" + new FakerUtils().generateRandomNumber();
@@ -96,7 +96,6 @@ public class LoginTest extends BaseTest {
         CheckoutPage checkoutPage = new CheckoutPage(getDriver());
         // after cookies are injected, open checkout
         checkoutPage.load();
-
         // UI steps
         checkoutPage
                 .setBillingAddress(billingAddress)

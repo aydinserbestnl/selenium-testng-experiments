@@ -1,6 +1,7 @@
 package com.selenium.pom.tests;
 
 import com.selenium.pom.base.BaseTest;
+import com.selenium.pom.components.ProductThumbnail;
 import com.selenium.pom.objects.BillingAddress;
 import com.selenium.pom.objects.Product;
 import com.selenium.pom.objects.User;
@@ -28,16 +29,17 @@ public class MyFirstTest extends BaseTest {
                 setEmail("abc@gmail.com");
 
         StorePage storePage = new HomePage(getDriver()).load()
+                .getMyHeader()
                 .navigateToStoreUsingMenu()
-                .search(searchFor)
-                .waitForResultsHeading(searchFor)
-                .clickAddToCartFor("Blue Shoes");
+                .search(searchFor);
 
         Assert.assertEquals(
                 storePage.getResultsHeadingText(),
                 storePage.buildResultsHeading(searchFor)
         );
-        CartPage cartPage = storePage.clickViewCart();
+        CartPage cartPage = storePage.getProductThumbnail()
+                .clickAddToCartFor("Blue Shoes")
+                .clickViewCart();
 
         Assert.assertEquals(
                 cartPage.getProductName(), "Blue Shoes");
@@ -64,19 +66,18 @@ public class MyFirstTest extends BaseTest {
 //                setEmail("abc@gmail.com");
         BillingAddress billingAddress =  JacksonUtils.deserializeJson("myBillingAddress.json", BillingAddress.class);
         Product product = new Product(1215);
-
         User user = new User(ConfigLoader.getInstance().getUsername(), ConfigLoader.getInstance().getPassword());
-        StorePage storePage = new HomePage(getDriver()).load()
-                .navigateToStoreUsingMenu()
-                .search(searchFor)
-                .waitForResultsHeading(searchFor)
-                .clickAddToCartFor(product.getName());
 
+        StorePage storePage = new HomePage(getDriver()).load().getMyHeader()
+                .navigateToStoreUsingMenu()
+                .search(searchFor);
         Assert.assertEquals(
                 storePage.getResultsHeadingText(),
                 storePage.buildResultsHeading(searchFor)
         );
-        CartPage cartPage = storePage.clickViewCart();
+
+        storePage.getProductThumbnail().clickAddToCartFor(product.getName());
+        CartPage cartPage = storePage.getProductThumbnail().clickViewCart();
 
         Assert.assertEquals(
                 cartPage.getProductName(), "Blue Shoes");

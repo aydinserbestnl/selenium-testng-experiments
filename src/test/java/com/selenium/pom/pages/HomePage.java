@@ -1,22 +1,29 @@
 package com.selenium.pom.pages;
 
 import com.selenium.pom.base.BasePage;
-import org.openqa.selenium.By;
+import com.selenium.pom.components.MyHeader;
+import com.selenium.pom.components.ProductThumbnail;
 import org.openqa.selenium.WebDriver;
 
 public class HomePage extends BasePage {
-    private final By storeMenuLink = By.linkText("Store");
+    private MyHeader myHeader;
+    private ProductThumbnail productThumbnail;
 
-    public HomePage(WebDriver driver) { super(driver); }
+    public ProductThumbnail getProductThumbnail() {
+        return productThumbnail;
+    }
 
+    public MyHeader getMyHeader() {
+        return myHeader;
+    }
+
+    public HomePage(WebDriver driver) {
+        super(driver);
+    myHeader = new MyHeader(driver);
+    productThumbnail = new ProductThumbnail(driver);}
     public HomePage load() {
         load("/");
         return this;
-    }
-
-    public StorePage navigateToStoreUsingMenu() {
-        clickWhenClickable(storeMenuLink);
-        return new StorePage(driver);
     }
 }
 

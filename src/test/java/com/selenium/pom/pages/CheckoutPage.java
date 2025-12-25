@@ -3,10 +3,12 @@ package com.selenium.pom.pages;
 import com.selenium.pom.base.BasePage;
 import com.selenium.pom.objects.BillingAddress;
 import com.selenium.pom.objects.User;
-import org.openqa.selenium.By;
-import org.openqa.selenium.StaleElementReferenceException;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.FluentWait;
+import org.openqa.selenium.support.ui.Wait;
+
+import java.time.Duration;
 
 public class CheckoutPage extends BasePage {
     private final By firstNameField = By.id("billing_first_name");
@@ -16,13 +18,13 @@ public class CheckoutPage extends BasePage {
     private final By billingPostCodeField = By.id("billing_postcode");
     private final By billingEmailField = By.id("billing_email");
     private final By placeOrderButton = By.id("place_order");
-    private final By successNotice = By.cssSelector(".woocommerce-notice");
+    private final By successNotice = By.cssSelector("p.woocommerce-notice");
     private final By clickHereToLoginButton = By.cssSelector(".showlogin");
     private final By userNameField = By.id("username");
     private final By passwordField = By.id("password");
     private final By loginButton = By.cssSelector(".woocommerce-button");
     private final By overlay = By.cssSelector("div.blockUI.blockOverlay");
-    private final By productName = By.cssSelector("td[class='product-name']");
+    private final By productName = By.cssSelector("td.product-name");
 
     public CheckoutPage(WebDriver driver) { super(driver); }
     public CheckoutPage load(){
@@ -61,7 +63,7 @@ public class CheckoutPage extends BasePage {
     }
 
     public String getNotice() {
-        return waitVisible(successNotice).getText();
+        return wait.until(ExpectedConditions.visibilityOfElementLocated(successNotice)).getText();
     }
 
     public CheckoutPage setBillingAddress(BillingAddress billingAddress) {
@@ -73,20 +75,28 @@ public class CheckoutPage extends BasePage {
                 .enterEmail(billingAddress.getEmail());
     }
 
+
     public CheckoutPage placeOrder() {
-        waitInvisible(overlay);
-        for (int i = 0; i < 2; i++) {
-            try {
-                WebElement button = waitClickable(placeOrderButton);
-                button.click();
-                return new CheckoutPage(driver);
-            } catch (StaleElementReferenceException e) {
-                // retry
-            }
-        }
-        WebElement button = waitClickable(placeOrderButton);
-        button.click();
-        return new CheckoutPage(driver);
+        wait.until(ExpectedConditions.invisibilityOfElementLocated(overlay));
+
+        Wait<WebDriver> clickWait = new FluentWait<>(driver)
+                .withTimeout(Duration.ofSeconds(10))
+                .pollingEvery(Duration.ofMillis(300))
+                .ignoring(ElementClickInterceptedException.class)
+                .ignoring(StaleElementReferenceException.class);
+
+        clickWait.until(d -> {
+            wait.until(ExpectedConditions.invisibilityOfElementLocated(overlay));
+            WebElement button = d.findElement(placeOrderButton);
+            ((JavascriptExecutor) d).executeScript("arguments[0].scrollIntoView({block:'center'});", button);
+            button.click();
+            return true;
+        });
+
+        wait.until(ExpectedConditions.urlContains("order-received"));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(successNotice));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(productName));
+        return this;
     }
 
     public CheckoutPage clickHereToLogin() {
@@ -126,6 +136,7 @@ public class CheckoutPage extends BasePage {
         return this;
     }
     public String getProductName() {
-        return getText(productName);
+        return wait.until(ExpectedConditions.visibilityOfElementLocated(productName)).getText();
     }
+
 }
