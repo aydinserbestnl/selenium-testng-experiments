@@ -81,7 +81,6 @@
         </dependency>
     </dependencies>
 
-    <!-- Default run: Allure açık, browser zorlanmıyor -->
     <build>
         <plugins>
             <plugin>
@@ -94,7 +93,6 @@
                         <!-- ✅ Allure results target/allure-results -->
                         <allure.results.directory>${allure.results.dir}</allure.results.directory>
 
-                        <!-- ❌ browser burada YOK -> öncelik sırası bozulmasın -->
                     </systemPropertyVariables>
 
                     <!-- Maven seviyesinde Allure listener -->
@@ -141,15 +139,15 @@
                         <version>3.2.5</version>
 
                         <configuration>
-                            <suiteXmlFiles>
-                                <suiteXmlFile>testng.xml</suiteXmlFile>
-                            </suiteXmlFiles>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
+                                <suiteXmlFiles>
+                                   <suiteXmlFile>testng.xml</suiteXmlFile>
+                               </suiteXmlFiles>
+                           </configuration>
+                       </plugin>
+                   </plugins>
+               </build>
+           </profile>
 
-    </profiles>
+       </profiles>
 
-</project>
+   </project>

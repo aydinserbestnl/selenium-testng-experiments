@@ -1,4 +1,4 @@
-package com.selenium.pom.base;
+package com.selenium.pom.allure_listeners;
 
 import com.selenium.pom.utils.ConfigLoader;
 import org.testng.IExecutionListener;

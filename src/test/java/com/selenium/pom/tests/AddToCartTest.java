@@ -32,7 +32,7 @@ public class AddToCartTest extends BaseTest {
         steps.addProductToCart(storePage, product.getName());
         CartPage cartPage = steps.openCart(storePage);
 
-        Assert.assertEquals(cartPage.getProductName(), product.getName()+ "nn");
+        Assert.assertEquals(cartPage.getProductName(), product.getName());
     }
     @Test(dataProvider = "getFeaturedProducts", dataProviderClass = MyDataProvider.class)
     public void addToCartFeatureProducts(Product product) {
