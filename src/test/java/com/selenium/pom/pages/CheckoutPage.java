@@ -3,6 +3,7 @@ package com.selenium.pom.pages;
 import com.selenium.pom.base.BasePage;
 import com.selenium.pom.objects.BillingAddress;
 import com.selenium.pom.objects.User;
+import io.qameta.allure.Step;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.FluentWait;
@@ -61,11 +62,11 @@ public class CheckoutPage extends BasePage {
         type(billingEmailField, email);
         return this;
     }
-
+    @Step
     public String getNotice() {
         return wait.until(ExpectedConditions.visibilityOfElementLocated(successNotice)).getText();
     }
-
+    @Step
     public CheckoutPage setBillingAddress(BillingAddress billingAddress) {
         return enterFirstName(billingAddress.getFirstName())
                 .enterLastName(billingAddress.getLastName())
@@ -75,7 +76,7 @@ public class CheckoutPage extends BasePage {
                 .enterEmail(billingAddress.getEmail());
     }
 
-
+    @Step
     public CheckoutPage placeOrder() {
         wait.until(ExpectedConditions.invisibilityOfElementLocated(overlay));
 

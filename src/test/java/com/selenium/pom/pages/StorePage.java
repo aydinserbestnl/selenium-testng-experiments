@@ -2,11 +2,13 @@ package com.selenium.pom.pages;
 
 import com.selenium.pom.base.BasePage;
 import com.selenium.pom.components.ProductThumbnail;
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
 public class StorePage extends BasePage {
+    @Step
     public ProductThumbnail getProductThumbnail() {
         return productThumbnail;
     }

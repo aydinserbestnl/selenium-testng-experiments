@@ -4,6 +4,7 @@ package com.selenium.pom.base;
 import com.selenium.pom.factory.DriverManager;
 import com.selenium.pom.utils.ConfigLoader;
 import com.selenium.pom.utils.CookieUtils;
+import io.qameta.allure.Step;
 import io.restassured.http.Cookies;
 import org.openqa.selenium.*;
 import org.testng.ITestResult;
@@ -42,7 +43,7 @@ public class BaseTest {
             driver.remove();
         }
     }
-
+    @Step
     public void injectCookiesToBrowser(Cookies cookies){
         List<Cookie> seleniumCookies = new CookieUtils().convertRestAssuredCookiesToSeleniumCookies(cookies);
         for(Cookie cookie: seleniumCookies){

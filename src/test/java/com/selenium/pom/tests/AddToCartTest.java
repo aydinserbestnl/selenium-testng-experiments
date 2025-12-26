@@ -6,33 +6,33 @@ import com.selenium.pom.objects.Product;
 import com.selenium.pom.pages.CartPage;
 import com.selenium.pom.pages.HomePage;
 import com.selenium.pom.pages.StorePage;
-import com.selenium.pom.steps.CartSteps;
+import io.qameta.allure.Description;
+import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
+import io.qameta.allure.Story;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import java.io.IOException;
 
+@Epic("Spotify Tests")
+@Feature("Playlist API Tests")
 public class AddToCartTest extends BaseTest {
-    private final CartSteps steps = new CartSteps();
 
-    @Test
+    @Story("Add to cart from store page")
+    @Description("Add to cart from store page")
+    @Test(description = "Add to cart from store page")
     public void addToCartFromStorePage() throws IOException {
 
-//        Product product = new Product(1215);
-//        CartPage cartPage = new StorePage(getDriver()).
-//                load().getProductThumbnail().
-//                clickAddToCartFor(product.getName()).
-//                clickViewCart();
-//
-//        Assert.assertEquals(
-//                cartPage.getProductName(), product.getName() + "BOZUK_DEGER");
         Product product = new Product(1215);
+        CartPage cartPage = new StorePage(getDriver()).
+                load().getProductThumbnail().
+                clickAddToCartFor(product.getName()).
+                clickViewCart();
 
-        StorePage storePage = steps.loadStorePage(getDriver());
-        steps.addProductToCart(storePage, product.getName());
-        CartPage cartPage = steps.openCart(storePage);
+        Assert.assertEquals(
+                cartPage.getProductName(), product.getName() );
 
-        Assert.assertEquals(cartPage.getProductName(), product.getName());
     }
     @Test(dataProvider = "getFeaturedProducts", dataProviderClass = MyDataProvider.class)
     public void addToCartFeatureProducts(Product product) {
