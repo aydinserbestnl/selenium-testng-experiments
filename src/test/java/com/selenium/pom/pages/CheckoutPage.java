@@ -102,7 +102,16 @@ public class CheckoutPage extends BasePage {
 
     public CheckoutPage clickHereToLogin() {
         clickWhenClickable(clickHereToLoginButton);
-        waitInvisible(overlay); // login form açılırken overlay kalksın
+
+        // 1️⃣ overlay gerçekten gitsin
+        waitInvisible(overlay);
+
+        // 2️⃣ login formun DOM'da göründüğünden emin ol
+        wait.until(ExpectedConditions.visibilityOfElementLocated(userNameField));
+
+        // 3️⃣ ve etkileşime açık olsun
+        wait.until(ExpectedConditions.elementToBeClickable(userNameField));
+
         return this;
     }
 
