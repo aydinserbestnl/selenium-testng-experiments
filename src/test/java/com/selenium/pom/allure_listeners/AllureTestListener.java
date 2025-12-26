@@ -13,6 +13,7 @@ import java.lang.reflect.Method;
 
 public class AllureTestListener implements ITestListener {
 
+
     @Override
     public void onTestFailure(ITestResult result) {
         try {

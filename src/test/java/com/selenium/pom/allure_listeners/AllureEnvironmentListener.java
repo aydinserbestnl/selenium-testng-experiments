@@ -12,30 +12,26 @@ import java.util.Properties;
 public class AllureEnvironmentListener implements IExecutionListener {
     @Override
     public void onExecutionStart() {
+        // İstersen burada bir şey yapma.
+        // (Hatta run başında temizlemek iyi olur)
+        AllureRunContext.clear();
+    }
+    @Override
+    public void onExecutionFinish() {
         try {
-            // ✅ Maven surefire set ederse target/allure-results olur.
-            // ✅ IntelliJ run’da set edilmezse aşağıdaki default devreye girer.
             String resultsDir = System.getProperty("allure.results.directory", "target/allure-results");
-
             Path dir = Paths.get(resultsDir);
             Files.createDirectories(dir);
 
             String project = System.getProperty("allure.project", "selenium-testng-experiments");
 
-            // ✅ Browser önceliği:
-            // 1) -Dbrowser
-            // 2) (TestNG param burada direkt okunamaz; o yüzden param yoksa config'e düşer)
-            // 3) config.properties
-            String browser = System.getProperty("browser");
-            if (browser == null || browser.isBlank()) {
-                browser = ConfigLoader.getInstance().getBrowser();
-            }
-
             Properties p = new Properties();
             p.setProperty("Project", project);
             p.setProperty("Runner", "TestNG");
             p.setProperty("Java", System.getProperty("java.version"));
-            p.setProperty("Browser", browser);
+
+            // ✅ Tek browser yerine: bu run’da kullanılan browser’ların özeti
+            p.setProperty("Browsers", AllureRunContext.getBrowsersCsvOrUnknown());
 
             try (OutputStream os = Files.newOutputStream(dir.resolve("environment.properties"))) {
                 p.store(os, null);

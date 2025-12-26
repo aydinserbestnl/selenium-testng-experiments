@@ -1,6 +1,7 @@
 package com.selenium.pom.base;
 
 
+import com.selenium.pom.allure_listeners.AllureRunContext;
 import com.selenium.pom.factory.DriverManager;
 import com.selenium.pom.utils.ConfigLoader;
 import com.selenium.pom.utils.CookieUtils;
@@ -32,6 +33,8 @@ public class BaseTest {
         if (selected == null || selected.isBlank()) {
             selected = ConfigLoader.getInstance().getBrowser();
         }
+        AllureRunContext.recordBrowser(selected);
+
         driver.set(new DriverManager().initializeDriver(selected));
     }
 
