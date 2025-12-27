@@ -120,11 +120,11 @@
                     </properties>
 
                     <!-- ✅ XML suite ile (CHROME+FIREFOX) koşmak istersen bunu aç -->
-
+                    <!--
                     <suiteXmlFiles>
                         <suiteXmlFile>testng.xml</suiteXmlFile>
                     </suiteXmlFiles>
-
+                                -->
 
                 </configuration>
             </plugin>
