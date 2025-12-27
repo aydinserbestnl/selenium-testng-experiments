@@ -1,62 +1,84 @@
+############################
+# Maven / Java
+############################
 target/
+*.class
+
+# Maven Wrapper (KEEP THIS)
 !.mvn/wrapper/maven-wrapper.jar
-!**/src/main/**/target/
-!**/src/test/**/target/
 
-### IntelliJ IDEA ###
-.idea/modules.xml
-.idea/jarRepositories.xml
-.idea/compiler.xml
-.idea/libraries/
-.idea/workspace.xml
-.idea/tasks.xml
-.idea/usage.statistics.xml
-.idea/shelf/
-.idea/httpRequests/
-*.iws
-*.iml
-*.ipr
+# (Eğer özel bir sebep yoksa bu iki satıra gerek yok,
+# target zaten ignore ediliyor)
+# !**/src/main/**/target/
+# !**/src/test/**/target/
 
-### Eclipse ###
-.apt_generated
-.classpath
-.factorypath
-.project
-.settings
-.springBeans
-.sts4-cache
-
-### NetBeans ###
-/nbproject/private/
-/nbbuild/
-/dist/
-/nbdist/
-/. nb-gradle/
-build/
-!**/src/main/**/build/
-!**/src/test/**/build/
-
-### VS Code ###
-.vscode/
-
-### Mac OS ###
-.DS_Store
-
-### Test outputs / reports ###
+############################
+# Test outputs / reports
+############################
 test-output/
 surefire-reports/
 failsafe-reports/
 allure-results/
 allure-report/
 reports/
+
+############################
+# Screenshots / test artifacts
+############################
 screenshots/
 captures/
+*.png
+*.jpg
+*.jpeg
+*.mp4
+*.webm
+*.zip
 
-### Logs / temp / artifacts ###
+############################
+# Logs / temp / crash files
+############################
 *.log
 *.tmp
 *.swp
 *.swo
-*.class
 hs_err_pid*
 replay_pid*
+
+############################
+# IntelliJ IDEA
+############################
+.idea/
+*.iml
+*.ipr
+*.iws
+
+############################
+# Eclipse
+############################
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings/
+.springBeans
+.sts4-cache
+
+############################
+# NetBeans
+############################
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+build/
+
+############################
+# VS Code
+############################
+.vscode/
+
+############################
+# macOS
+############################
+.DS_Store
