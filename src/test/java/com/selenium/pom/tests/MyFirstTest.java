@@ -8,6 +8,9 @@ import com.selenium.pom.objects.User;
 import com.selenium.pom.pages.*;
 import com.selenium.pom.utils.ConfigLoader;
 import com.selenium.pom.utils.JacksonUtils;
+import io.qameta.allure.Flaky;
+import io.qameta.allure.Severity;
+import io.qameta.allure.SeverityLevel;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -52,7 +55,8 @@ public class MyFirstTest extends BaseTest {
                 "Thank you. Your order has been received."
         );
     }
-
+    @Flaky
+    @Severity(SeverityLevel.CRITICAL)
     @Test
     public void loginAndCheckoutUsingDirectBankTransfer() throws InterruptedException, IOException {
         // Use a single variable for the dynamic search term so the flow remains data-driven.

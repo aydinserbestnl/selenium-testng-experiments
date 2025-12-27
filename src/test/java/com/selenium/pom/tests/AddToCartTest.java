@@ -6,10 +6,7 @@ import com.selenium.pom.objects.Product;
 import com.selenium.pom.pages.CartPage;
 import com.selenium.pom.pages.HomePage;
 import com.selenium.pom.pages.StorePage;
-import io.qameta.allure.Description;
-import io.qameta.allure.Epic;
-import io.qameta.allure.Feature;
-import io.qameta.allure.Story;
+import io.qameta.allure.*;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -21,6 +18,9 @@ public class AddToCartTest extends BaseTest {
 
     @Story("Add to cart from store page")
     @Description("Add to cart from store page")
+    @Feature("Cart")
+    @Flaky
+    @Severity(SeverityLevel.NORMAL)
     @Test(description = "Add to cart from store page")
     public void addToCartFromStorePage() throws IOException {
 
