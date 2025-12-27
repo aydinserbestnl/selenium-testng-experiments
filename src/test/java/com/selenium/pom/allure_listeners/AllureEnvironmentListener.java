@@ -10,12 +10,13 @@ import java.nio.file.Paths;
 import java.util.Properties;
 
 public class AllureEnvironmentListener implements IExecutionListener {
+
     @Override
     public void onExecutionStart() {
-        // İstersen burada bir şey yapma.
-        // (Hatta run başında temizlemek iyi olur)
+        // Run başında bir önceki run'ın bilgisini temizle
         AllureRunContext.clear();
     }
+
     @Override
     public void onExecutionFinish() {
         try {
@@ -25,6 +26,15 @@ public class AllureEnvironmentListener implements IExecutionListener {
 
             String project = System.getProperty("allure.project", "selenium-testng-experiments");
 
+            // Headless (öncelik: -Dheadless -> ENV HEADLESS -> default false)
+            String headless = System.getProperty("headless");
+            if (headless == null || headless.isBlank()) {
+                headless = System.getenv("HEADLESS");
+            }
+            if (headless == null || headless.isBlank()) {
+                headless = "false";
+            }
+
             Properties p = new Properties();
             p.setProperty("Project", project);
             p.setProperty("Runner", "TestNG");
@@ -33,6 +43,9 @@ public class AllureEnvironmentListener implements IExecutionListener {
             // ✅ Tek browser yerine: bu run’da kullanılan browser’ların özeti
             p.setProperty("Browsers", AllureRunContext.getBrowsersCsvOrUnknown());
 
+            // ✅ Headless bilgisi
+            p.setProperty("Headless", headless.toUpperCase());
+
             try (OutputStream os = Files.newOutputStream(dir.resolve("environment.properties"))) {
                 p.store(os, null);
             }
@@ -40,5 +53,4 @@ public class AllureEnvironmentListener implements IExecutionListener {
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
-}
+    }}
